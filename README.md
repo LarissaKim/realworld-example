@@ -1,34 +1,105 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# A RealWorld Example App :woman_technologist:
 
-## Getting Started
+This is a modified implementation of [RealWorld](https://realworld-docs.netlify.app/docs/intro), a project used to learn about frontend/backend frameworks by creating a blogging platform. Check out the [official demo](https://demo.realworld.io/#/).
 
-First, run the development server:
+### Short-term goals
 
-```bash
-npm run dev
-# or
-yarn dev
+- explore TailwindCSS
+- get more comfortable with Next.js
+- build proficiency in React
+- learn about
+  - implementing a backend using AWS
+    - including DynamoDB, Lamba, API Gateway
+    - and explore single-table design
+  - caching strategies
+  - pagination
+  - authentication
+- develop the habit of using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+### Big hairy goals
+
+- i18n
+- TypeScript
+- Serverless architecture
+- Event-driven architecture
+- Micro-services
+- Micro-frontends
+
+## TODO
+
+### User CRUD & Authentication
+
+- [ ] User can register
+- [ ] User can login
+- [ ] User can update own profile (image, bio, email, password)
+- [ ] Get user profile by username
+
+### Article CRUD
+
+- [ ] List all articles, ordered by most recent first
+  - [ ] List articles by tag
+  - [ ] List articles written by a user
+  - [ ] List articles favourited by a user
+- [ ] Articles are paginated
+- [ ] Personalized article feed
+  - [ ] List articles written by followed users, ordered by most recent first
+- [ ] Get an article by slug
+- [ ] User can create an article (using Markdown)
+- [ ] User can update their articles
+- [ ] User can delete their articles
+
+### Interactions
+
+- [ ] List comments for an article
+- [ ] Comments are paginated
+- [ ] User can comment on an article
+- [ ] User can update their comments
+- [ ] User can delete their comments
+- [ ] User can un/favourite articles
+- [ ] User can un/follow other users
+
+## RealWorld Backend Specs: [Endpoints](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints)
+
+```
+POST /api/users/login - Authentication
+POST /api/users - Registration
+GET /api/user - Get current user
+PUT /api/user - Update user
+GET /api/profiles/:username - Get profile
+POST /api/profiles/:username/follow - Follow user
+DELETE /api/profiles/:username/follow - Unfollow user
+
+GET /api/articles - List articles
+GET /api/articles/feed - List feed articles
+GET /api/articles/:slug - Get article
+POST /api/articles - Create article
+PUT /api/articles/:slug - Update article
+DELETE /api/articles/:slug - Delete article
+
+POST /api/articles/:slug/comments - Add comment to article
+GET /api/articles/:slug/comments - Get comments from article
+DELETE /api/articles/:slug/comments/:id - Delete comment
+
+POST /api/articles/:slug/favorite - Favourite article
+DELETE /api/articles/:slug/favorite - Unfavourite article
+
+GET /api/tags - Get tags
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Resources
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- [Introducing RealWorld 🙌](https://medium.com/@ericsimons/introducing-realworld-6016654d36b5) article by Eric Simons
+- [RealWorld Project Docs](https://realworld-docs.netlify.app/docs/intro)
+- [Conduit](https://demo.realworld.io/#/) - the RealWorld demo app
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Marcia Villalba's [7 Common DynamoDB Patterns for Modeling and Building an App](https://www.youtube.com/watch?v=Q6-qWdsa8a4) YouTube video with Alex De Brie
+- The DynamoDB Book by Alex De Brie
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Fullstack Authentication with Refresh Access Tokens](https://www.youtube.com/watch?v=xMsJPnjiRAc) YouTube tutorial by Florian Ludewig
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+This [Next.js](https://nextjs.org/) project was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
