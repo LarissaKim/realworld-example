@@ -2,7 +2,7 @@
 
 This is a modified implementation of [RealWorld](https://realworld-docs.netlify.app/docs/intro), a project used to learn about frontend/backend frameworks by creating a blogging platform. Check out the [official demo](https://demo.realworld.io/#/).
 
-### Short-term goals
+### Short-term learning goals
 
 - explore TailwindCSS
 - get more comfortable with Next.js
@@ -15,50 +15,69 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
   - pagination
   - authentication
 - develop the habit of using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- build proficiency with Git/GitHub version control
+- deploy to Vercel
 
-### Big hairy goals
+### Big hairy learning goals
 
-- i18n
-- TypeScript
-- Serverless architecture
-- Event-driven architecture
-- Micro-services
-- Micro-frontends
+- experiment with
+  - Event-driven architecture
+  - Micro-services
+  - Micro-frontends
+- implement
+  - CI/CD
+  - documentation
+  - logging
+  - analytics
+  - i18n
+  - TypeScript
+  - Web3 version
 
 ## TODO
 
-### User CRUD & Authentication
+### User CRU[D] & Authentication
 
 - [ ] User can register
 - [ ] User can login
 - [ ] User can update own profile (image, bio, email, password)
-- [ ] Get user profile by username
+- [ ] Get user by username
+- [ ] Get profile by username
 
 ### Article CRUD
 
 - [ ] List all articles, ordered by most recent first
   - [ ] List articles by tag
-  - [ ] List articles written by a user
-  - [ ] List articles favourited by a user
-- [ ] Articles are paginated
+  - [ ] List articles written by username
+  - [ ] List articles favourited by username
 - [ ] Personalized article feed
   - [ ] List articles written by followed users, ordered by most recent first
+- [ ] Articles are paginated
 - [ ] Get an article by slug
 - [ ] User can create an article (using Markdown)
-- [ ] User can update their articles
-- [ ] User can delete their articles
+- [ ] User can update own articles (title, description, content)
+- [ ] User can delete own articles
 
 ### Interactions
 
 - [ ] List comments for an article
 - [ ] Comments are paginated
 - [ ] User can comment on an article
-- [ ] User can update their comments
-- [ ] User can delete their comments
+- [ ] User can update own comments (content)
+- [ ] User can delete own comments
 - [ ] User can un/favourite articles
 - [ ] User can un/follow other users
 
-## RealWorld Backend Specs: [Endpoints](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints)
+### Bonus
+
+- [ ] Admin dashboard
+  - [ ] Admin can view activity insights for platform
+- [ ] Author dashboard
+  - [ ] Author can view activity insights for published articles (e.g. views)
+- [ ] User can bookmark articles to read later
+- [ ] User can view list of bookmarked articles, ordered by most recent(ly published) first
+- [ ] User can delete their account
+
+## Endpoints (as per [RealWorld Backend Specs](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints))
 
 ```
 POST /api/users/login - Authentication
