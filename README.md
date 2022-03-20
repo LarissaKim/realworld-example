@@ -123,6 +123,10 @@ DELETE /api/articles/:slug/comments/:id - Delete comment
 GET /api/tags - Get tags
 ```
 
+## Overview
+
+![Conceptual Entity Relationship Diagram (light theme)](./docs/erd-conceptual-light.svg#gh-light-mode-only)![Conceptual Entity Relationship Diagram (dark theme)](./docs/erd-conceptual-dark.svg#gh-dark-mode-only)
+
 ## Resources
 
 - [Introducing RealWorld 🙌](https://medium.com/@ericsimons/introducing-realworld-6016654d36b5) article by Eric Simons
