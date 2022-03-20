@@ -39,7 +39,7 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 
 - [ ] User can register
 - [ ] User can login
-- [ ] User can update own profile (image, bio, email, password)
+- [ ] User can update own profile (email, username[\*](#special-requirements), password, image, bio)
 - [ ] Get user by username
 - [ ] Get profile by username
 
@@ -52,17 +52,17 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 - [ ] Personalized article feed
   - [ ] List articles written by followed users, ordered by most recent first
 - [ ] Articles are paginated
-- [ ] Get an article by slug
-- [ ] User can create an article (using Markdown)
-- [ ] User can update own articles (title, description, content)
+- [ ] Get an article by slug[\*](#special-requirements)
+- [ ] User can create an article using Markdown
+- [ ] User can update own articles (title[\*](#special-requirements), description, content)
 - [ ] User can delete own articles
 
 ### Interactions
 
 - [ ] List comments for an article
 - [ ] Comments are paginated
-- [ ] User can comment on an article
-- [ ] User can update own comments (content)
+- [ ] User can comment on an article (**BONUS**: using Markdown)
+- [ ] User can update own comments (body)
 - [ ] User can delete own comments
 - [ ] User can un/favourite articles
 - [ ] User can un/follow other users
@@ -76,31 +76,49 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 - [ ] User can bookmark articles to read later
 - [ ] User can view list of bookmarked articles, ordered by most recent(ly published) first
 - [ ] User can delete their account
+- [ ] User can create an article with image(s)
 
-## Endpoints (as per [RealWorld Backend Specs](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints))
+### Special Requirements
+
+- Slug must be updated when the author changes the title
+- User is able to change their username
+
+## Endpoints
+
+Check out the original [RealWorld Endpoints](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints)
 
 ```
-POST /api/users/login - Authentication
 POST /api/users - Registration
-GET /api/user - Get current user
-PUT /api/user - Update user
-GET /api/profiles/:username - Get profile
-POST /api/profiles/:username/follow - Follow user
-DELETE /api/profiles/:username/follow - Unfollow user
+POST /api/users/login - Authentication
+POST /api/users/logout
+POST /api/users/refresh - Refresh authentication tokens
 
+GET /api/users/me - Get current user
+PUT /api/users/me - Update current user
+
+GET /api/users/:username/followers - List followers of user
+GET /api/users/:username/following - List followings of user
+POST /api/users/:username/following - Follow user
+DELETE /api/users/:username/following - Unfollow user
+
+GET /api/profiles/:username - Get profile
+GET /api/profiles/me - Get current user's profile
+
+POST /api/articles - Create article
 GET /api/articles - List articles
 GET /api/articles/feed - List feed articles
+
 GET /api/articles/:slug - Get article
-POST /api/articles - Create article
 PUT /api/articles/:slug - Update article
 DELETE /api/articles/:slug - Delete article
 
-POST /api/articles/:slug/comments - Add comment to article
-GET /api/articles/:slug/comments - Get comments from article
-DELETE /api/articles/:slug/comments/:id - Delete comment
-
 POST /api/articles/:slug/favorite - Favourite article
 DELETE /api/articles/:slug/favorite - Unfavourite article
+
+GET /api/articles/:slug/comments - List comments for article
+POST /api/articles/:slug/comments - Add comment to article
+PUT /api/articles/:slug/comments/:id - Edit comment
+DELETE /api/articles/:slug/comments/:id - Delete comment
 
 GET /api/tags - Get tags
 ```
@@ -110,10 +128,9 @@ GET /api/tags - Get tags
 - [Introducing RealWorld 🙌](https://medium.com/@ericsimons/introducing-realworld-6016654d36b5) article by Eric Simons
 - [RealWorld Project Docs](https://realworld-docs.netlify.app/docs/intro)
 - [Conduit](https://demo.realworld.io/#/) - the RealWorld demo app
-
 - Marcia Villalba's [7 Common DynamoDB Patterns for Modeling and Building an App](https://www.youtube.com/watch?v=Q6-qWdsa8a4) YouTube video with Alex De Brie
 - The DynamoDB Book by Alex De Brie
-
+- Build APIs You Won't Hate by Phil Sturgeon
 - [Fullstack Authentication with Refresh Access Tokens](https://www.youtube.com/watch?v=xMsJPnjiRAc) YouTube tutorial by Florian Ludewig
 
 ---
