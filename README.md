@@ -2,6 +2,18 @@
 
 This is a modified implementation of [RealWorld](https://realworld-docs.netlify.app/docs/intro), a project used to learn about frontend/backend frameworks by creating a blogging platform. Check out the [official demo](https://demo.realworld.io/#/).
 
+## Table of Contents
+
+- [Goals](#goals)
+- [TODO](#todo)
+- [Overview](#overview)
+- [Resources](#resources)
+
+## Goals
+
+- [Short-term learning goals](#short-term-learning-goals)
+- [Big hairy learning goals](#big-hairy-learning-goals)
+
 ### Short-term learning goals
 
 - explore TailwindCSS
@@ -35,6 +47,11 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 
 ## TODO
 
+- [User CRUD](#user-crud--authentication)
+- [Article CRUD](#article-crud)
+- [Interactions](#interactions)
+- [Bonus](#bonus-not-requiredspecified-in-realworld-specs)
+
 ### User CRU[D] & Authentication
 
 - [ ] User can register
@@ -62,30 +79,43 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 - [ ] List comments for an article
 - [ ] Comments are paginated
 - [ ] User can comment on an article (**BONUS**: using Markdown)
-- [ ] User can update own comments (body)
 - [ ] User can delete own comments
 - [ ] User can un/favourite articles
 - [ ] User can un/follow other users
 
-### Bonus
+### Bonus (Not required/specified in RealWorld specs)
 
-- [ ] Admin dashboard
-  - [ ] Admin can view activity insights for platform
-- [ ] Author dashboard
-  - [ ] Author can view activity insights for published articles (e.g. views)
+- [ ] User can update own comments (body)
 - [ ] User can bookmark articles to read later
 - [ ] User can view list of bookmarked articles, ordered by most recent(ly published) first
 - [ ] User can delete their account
 - [ ] User can create an article with image(s)
+- [ ] Write sharding for article tags
+- [ ] Admin dashboard
+  - [ ] Admin can view activity insights for platform
+- [ ] Author dashboard
+  - [ ] Author can view activity insights for published articles (e.g. views)
 
-### Special Requirements
+## Overview
 
-- Slug must be updated when the author changes the title
-- User is able to change their username
+- [Entity Relationships](#entity-relationships)
+- [Data Visualization](#data-visualization)
+- [Endpoints](#endpoints)
+- [Considerations](#considerations)
 
-## Endpoints
+### Entity Relationships
 
-Check out the original [RealWorld Endpoints](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints)
+![Conceptual ERD](./docs/erd-conceptual-light.svg#gh-light-mode-only)![Conceptual ERD](./docs/erd-conceptual-dark.svg#gh-dark-mode-only)
+
+### Data Visualization
+
+|           Main Table            |                 Global Secondary Index 1                 |                 Global Secondary Index 2                 |
+| :-----------------------------: | :------------------------------------------------------: | :------------------------------------------------------: |
+| ![Main](./docs/db-table-v1.png) | ![Global Secondary Index 1](./docs/db-table-GSI1-v1.png) | ![Global Secondary Index 2](./docs/db-table-GSI2-v1.png) |
+
+_NOTE: The attribute values `Y`, `1`, and `true` in the above images indicate that the attribute exists for that item and the data type of the value (string, number, or boolean, respectively)._
+
+### Endpoints
 
 ```
 POST /api/users - Registration
@@ -123,19 +153,31 @@ DELETE /api/articles/:slug/comments/:id - Delete comment
 GET /api/tags - Get tags
 ```
 
-## Overview
+Check out the original [RealWorld Endpoints](https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints)
 
-![Conceptual Entity Relationship Diagram (light theme)](./docs/erd-conceptual-light.svg#gh-light-mode-only)![Conceptual Entity Relationship Diagram (dark theme)](./docs/erd-conceptual-dark.svg#gh-dark-mode-only)
+### Considerations
+
+- Slug must be updated when the author changes the title
+- User can change their username
+- Usernames should be unique
+- Emails should be unique
+- Article or comment author profile must be up-to-date
+- Current user's following status must be shown when viewing another user's profile, including authors of articles and comments
+- A high-traffic production app would likely require write-sharding for articles and article tags to avoid hot partitions
+
+  This project will attempt to implement write-sharding for articles. A global secondary index with the partition key `ARTICLE#YYYY#MM#DD` (year, month, date the article was published) will be used when listing articles. Possible values will be the date the query was made (inclusive) until the date this app was "released" (inclusive).
+
+  Write-sharding article tags could be implemented by showing the top `n` tags, as outlined in a [ "leaderboard" example by Alex De Brie](https://www.dynamodbguide.com/leaderboard-write-sharding). This method will most likely be used when implementing the [Bonus TODO](#bonus).
 
 ## Resources
 
 - [Introducing RealWorld 🙌](https://medium.com/@ericsimons/introducing-realworld-6016654d36b5) article by Eric Simons
 - [RealWorld Project Docs](https://realworld-docs.netlify.app/docs/intro)
 - [Conduit](https://demo.realworld.io/#/) - the RealWorld demo app
+- [Fullstack Authentication with Refresh Access Tokens](https://www.youtube.com/watch?v=xMsJPnjiRAc) YouTube tutorial by Florian Ludewig
 - Marcia Villalba's [7 Common DynamoDB Patterns for Modeling and Building an App](https://www.youtube.com/watch?v=Q6-qWdsa8a4) YouTube video with Alex De Brie
 - The DynamoDB Book by Alex De Brie
 - Build APIs You Won't Hate by Phil Sturgeon
-- [Fullstack Authentication with Refresh Access Tokens](https://www.youtube.com/watch?v=xMsJPnjiRAc) YouTube tutorial by Florian Ludewig
 
 ---
 
