@@ -2,6 +2,8 @@
 
 This is a modified implementation of [RealWorld](https://realworld-docs.netlify.app/docs/intro), a project used to learn about frontend/backend frameworks by creating a blogging platform. Check out the [official demo](https://demo.realworld.io/#/).
 
+**NOTE**: I started this project because I wanted to play around with AWS solutions. Most of the projects I've worked on so far were front-end heavy, so back-end is a new adventure for me. However, rather than focusing on a specific implementation solution, I've decided to adjust my focus on understanding the underlying principles in a provider-agnostic way. (Think :turtle: not :rabbit2:)
+
 ## Table of Contents
 
 - [Goals](#goals)
@@ -20,9 +22,7 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 - get more comfortable with Next.js
 - build proficiency in React
 - learn about
-  - implementing a backend using AWS
-    - including DynamoDB, Lamba, API Gateway
-    - and explore single-table design
+  - implementing a backend (database, API)
   - caching strategies
   - pagination
   - authentication
@@ -56,7 +56,7 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 
 - [ ] User can register
 - [ ] User can login
-- [ ] User can update own profile (email, username[\*](#special-requirements), password, image, bio)
+- [ ] User can update own profile (email, username, password, image, bio)
 - [ ] Get user by username
 - [ ] Get profile by username
 
@@ -69,9 +69,9 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 - [ ] Personalized article feed
   - [ ] List articles written by followed users, ordered by most recent first
 - [ ] Articles are paginated
-- [ ] Get an article by slug[\*](#special-requirements)
+- [ ] Get an article by slug
 - [ ] User can create an article using Markdown
-- [ ] User can update own articles (title[\*](#special-requirements), description, content)
+- [ ] User can update own articles (title, description, content)
 - [ ] User can delete own articles
 
 ### Interactions
@@ -105,15 +105,11 @@ This is a modified implementation of [RealWorld](https://realworld-docs.netlify.
 
 ### Entity Relationships
 
-![Conceptual ERD](./docs/erd-conceptual-light.svg#gh-light-mode-only)![Conceptual ERD](./docs/erd-conceptual-dark.svg#gh-dark-mode-only)
+:construction:
 
 ### Data Visualization
 
-|           Main Table            |                 Global Secondary Index 1                 |                 Global Secondary Index 2                 |
-| :-----------------------------: | :------------------------------------------------------: | :------------------------------------------------------: |
-| ![Main](./docs/db-table-v1.png) | ![Global Secondary Index 1](./docs/db-table-GSI1-v1.png) | ![Global Secondary Index 2](./docs/db-table-GSI2-v1.png) |
-
-_NOTE: The attribute values `Y`, `1`, and `true` in the above images indicate that the attribute exists for that item and the data type of the value (string, number, or boolean, respectively)._
+:construction:
 
 ### Endpoints
 
@@ -132,7 +128,6 @@ POST /api/users/:username/following - Follow user
 DELETE /api/users/:username/following - Unfollow user
 
 GET /api/profiles/:username - Get profile
-GET /api/profiles/me - Get current user's profile
 
 POST /api/articles - Create article
 GET /api/articles - List articles
@@ -163,11 +158,6 @@ Check out the original [RealWorld Endpoints](https://realworld-docs.netlify.app/
 - Emails should be unique
 - Article or comment author profile must be up-to-date
 - Current user's following status must be shown when viewing another user's profile, including authors of articles and comments
-- A high-traffic production app would likely require write-sharding for articles and article tags to avoid hot partitions
-
-  This project will attempt to implement write-sharding for articles. A global secondary index with the partition key `ARTICLE#YYYY#MM#DD` (year, month, date the article was published) will be used when listing articles. Possible values will be the date the query was made (inclusive) until the date this app was "released" (inclusive).
-
-  Write-sharding article tags could be implemented by showing the top `n` tags, as outlined in a [ "leaderboard" example by Alex De Brie](https://www.dynamodbguide.com/leaderboard-write-sharding). This method will most likely be used when implementing the [Bonus TODO](#bonus).
 
 ## Resources
 
@@ -175,9 +165,11 @@ Check out the original [RealWorld Endpoints](https://realworld-docs.netlify.app/
 - [RealWorld Project Docs](https://realworld-docs.netlify.app/docs/intro)
 - [Conduit](https://demo.realworld.io/#/) - the RealWorld demo app
 - [Fullstack Authentication with Refresh Access Tokens](https://www.youtube.com/watch?v=xMsJPnjiRAc) YouTube tutorial by Florian Ludewig
+- Rick Houlihan's AWS re:Invent 2018 talk on [Advanced Design Patterns for DynamoDB](https://youtu.be/HaEPXoXVf2k)
 - Marcia Villalba's [7 Common DynamoDB Patterns for Modeling and Building an App](https://www.youtube.com/watch?v=Q6-qWdsa8a4) YouTube video with Alex De Brie
 - The DynamoDB Book by Alex De Brie
 - Build APIs You Won't Hate by Phil Sturgeon
+- Database Design for Mere Mortals by Michael J. Hernandez
 
 ---
 
